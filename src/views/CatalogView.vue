@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-4">
-    <h2 class="mb-4">📚 Каталог Книг (CRUD)</h2>
+    <h2 class="mb-4">📚 Каталог Книг</h2>
 
     <div class="card mb-4 shadow">
       <div class="card-header bg-success text-white">

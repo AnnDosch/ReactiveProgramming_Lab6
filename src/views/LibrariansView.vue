@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-4">
-    <h2 class="mb-4">💼 Список Бібліотекарів (CRUD)</h2>
+    <h2 class="mb-4">💼 Список Бібліотекарів</h2>
 
     <div class="card mb-4 shadow">
       <div class="card-header bg-info text-white">
@@ -123,9 +123,6 @@ export default {
     this.fetchLibrarians();
   },
   methods: {
-    // ------------------------------------
-    // READ (Отримання всіх)
-    // ------------------------------------
     async fetchLibrarians() {
       this.loading = true;
       this.error = null;
@@ -141,23 +138,17 @@ export default {
       }
     },
 
-    // ------------------------------------
-    // CREATE / UPDATE (Створення / Збереження)
-    // ------------------------------------
     async saveLibrarian() {
       try {
         const librarianData = { ...this.librarianForm };
 
         if (this.isEditing) {
-          // UPDATE (PUT)
           await axios.put(`${this.apiUrl}/${librarianData.id}`, librarianData);
         } else {
-          // CREATE (POST)
           delete librarianData.id;
           await axios.post(this.apiUrl, librarianData);
         }
 
-        // Оновлюємо список
         this.fetchLibrarians();
         this.resetForm();
       } catch (err) {
@@ -166,9 +157,6 @@ export default {
       }
     },
 
-    // ------------------------------------
-    // DELETE (Видалення)
-    // ------------------------------------
     async deleteLibrarian(id) {
       if (!confirm("Ви впевнені, що хочете видалити цього бібліотекаря?"))
         return;
@@ -182,11 +170,7 @@ export default {
       }
     },
 
-    // ------------------------------------
-    // ДОПОМІЖНІ МЕТОДИ
-    // ------------------------------------
     editLibrarian(librarian) {
-      // Заповнюємо форму даними для редагування
       this.librarianForm = { ...librarian };
       this.isEditing = true;
     },
@@ -196,7 +180,6 @@ export default {
     },
 
     resetForm() {
-      // Скидаємо форму до початкового стану
       this.librarianForm = {
         id: null,
         firstName: "",

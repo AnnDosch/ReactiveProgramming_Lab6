@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-4">
-    <h2 class="mb-4">👤 Список Читачів (CRUD)</h2>
+    <h2 class="mb-4">👤 Список Читачів</h2>
 
     <div class="card mb-4 shadow">
       <div class="card-header bg-primary text-white">
@@ -109,7 +109,7 @@ export default {
         id: null,
         firstName: "",
         lastName: "",
-        phoneNumber: "", // Можна ігнорувати, якщо не потрібен у формі
+        phoneNumber: "",
         email: "",
         activeOrdersCount: 0,
       },
@@ -119,9 +119,6 @@ export default {
     this.fetchReaders();
   },
   methods: {
-    // ------------------------------------
-    // READ (Отримання всіх)
-    // ------------------------------------
     async fetchReaders() {
       this.loading = true;
       this.error = null;
@@ -137,24 +134,17 @@ export default {
       }
     },
 
-    // ------------------------------------
-    // CREATE / UPDATE (Створення / Збереження)
-    // ------------------------------------
     async saveReader() {
       try {
         const readerData = { ...this.readerForm };
 
         if (this.isEditing) {
-          // UPDATE (PUT)
           await axios.put(`${this.apiUrl}/${readerData.id}`, readerData);
         } else {
-          // CREATE (POST)
-          // Видаляємо ID, щоб БД його згенерувала
           delete readerData.id;
           await axios.post(this.apiUrl, readerData);
         }
 
-        // Оновлюємо список
         this.fetchReaders();
         this.resetForm();
       } catch (err) {
@@ -163,26 +153,19 @@ export default {
       }
     },
 
-    // ------------------------------------
-    // DELETE (Видалення)
-    // ------------------------------------
     async deleteReader(id) {
       if (!confirm("Ви впевнені, що хочете видалити цього читача?")) return;
 
       try {
         await axios.delete(`${this.apiUrl}/${id}`);
-        this.fetchReaders(); // Оновлюємо список
+        this.fetchReaders();
       } catch (err) {
         this.error = `Помилка видалення: ${err.response.status}. Можливий конфлікт FK (книга видана).`;
         console.error(err);
       }
     },
 
-    // ------------------------------------
-    // ДОПОМІЖНІ МЕТОДИ
-    // ------------------------------------
     editReader(reader) {
-      // Заповнюємо форму даними для редагування
       this.readerForm = { ...reader };
       this.isEditing = true;
     },
@@ -192,7 +175,6 @@ export default {
     },
 
     resetForm() {
-      // Скидаємо форму до початкового стану
       this.readerForm = {
         id: null,
         firstName: "",
