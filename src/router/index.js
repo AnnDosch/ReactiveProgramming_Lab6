@@ -1,5 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import HomeView from "../views/HomeView.vue"; // Вже існує
+import CatalogView from "../views/CatalogView.vue";
+import ReadersView from "../views/ReadersView.vue";
+import AdminView from "../views/AdminView.vue";
+import LoginView from "../views/LoginView.vue";
+import LibrariansView from "../views/LibrariansView.vue";
 
 const routes = [
   {
@@ -8,13 +13,29 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/catalog",
+    name: "catalog",
+    component: CatalogView,
+  },
+  {
+    path: "/readers",
+    name: "readers",
+    component: ReadersView,
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: AdminView,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: LoginView,
+  },
+  {
+    path: "/librarians",
+    name: "librarians",
+    component: LibrariansView,
   },
 ];
 
